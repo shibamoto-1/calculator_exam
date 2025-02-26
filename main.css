@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vh;
+  height: 100vh;
+}
+
+.display {
+  color: white;
+  background-color: black;
+  margin: 5px;
+  height: 60px;
+}
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.btn {
+  margin: 5px;
+  padding: 25px;
+  font-size: 20px;
+}
+
+.ac, .equal {
+  grid-column: span 2;
+}
