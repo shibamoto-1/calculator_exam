@@ -1,51 +1,91 @@
-let a = "", b = "", ans = 0;
+let num_1 = "", num_2 = "", result;
 let operator = "";
 
+/*
+    - numを入力後"00"が入力できない
+    - .を実装する
+*/
+
 $(".num").click(function() { 
-    let value = $(this).text();
-    
-    if(!operator){   
-        a += value;
-        $(".display").append(value);
-    } else {
-        b += value;
-        $(".display").append(value);
+    let input = $(this).text();
+
+    // 0を連続して入力できないようにする
+    if(num_1 == "0" && input == "0") return;
+    if(num_2 == "0" && input == "0") return;
+
+    // 先頭に00が入らないようにする
+    if(!num_1 && input === "00") return;
+    if(!num_2 && input === "00") return;
+
+    if (input === ".") {
+        if (!operator) {
+            if(num_1.includes(".")) return;
+            if(num_1 === "") return;
+        } else {
+            if(num_2.includes(".")) return;
+            if(!num_2) return;
+        }
     }
+
+    if(num_1 == result && !operator){
+        if(input !== "." || num_1 !== "0."){
+            num_1 = "";
+            $(".display").text("");
+        }
+    }
+    if(num_1 == "0" && !operator){
+        if(input !== "."){
+            num_1 = "";
+            $(".display").text("");
+        }
+    }
+
+    if(!operator ? num_1 += input : num_2 += input);
+    $(".display").text(num_1 + operator + num_2);
+});
+
+$(".dot").click(function() { 
+    if (!operator) {
+        if(num_1.includes(".") || num_1 === "") return;
+        num_1 += ".";
+    } else {
+        if(num_2.includes(".") || num_2 === "") return;
+        num_2 += ".";
+    }
+    $(".display").text(num_1 + operator + num_2);
 });
 
 $(".operator").click(function() {
-    if(!operator && a !== ""){
+    if(!operator && num_1 !== ""){
         operator = $(this).text();
-        $(".display").append(operator);
+        $(".display").text(num_1 + operator);
     }
 });
 
 $(".equal").click(function() {
-    console.log(a, b, operator);
     switch(operator){
         case "+":
-            ans = Number(a) + Number(b);
+            result = Number(num_1) + Number(num_2);
             break;
         case "-":
-            ans = Number(a) - Number(b);
+            result = Number(num_1) - Number(num_2);
             break;
         case "*":
-            ans = Number(a) * Number(b);
+            result = Number(num_1) * Number(num_2);
             break;
         case "/":
-            ans = Number(a) / Number(b);
+            result = Number(num_1) / Number(num_2);
             break;
         default:
             break;
     }
-    $(".display").text(ans);
-    a = ans;
-    b = operator = "";
-
+    $(".display").text(result);
+    num_1 = $(".display").text();
+    num_2 = operator = "";
 });
 
 $(".ac").click(function() {
-    a = "", b = "", ans = 0, operator = "";
+    num_1 = "", num_2 = "", result = 0, operator = "";
     $(".display").text("");
 });
 
