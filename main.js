@@ -71,7 +71,7 @@ $(".equal").click(function() {
         default:
             break;
     }
-    $(".display").text(result);
+    $(".display").text(Number(result.toFixed(8)));
     num_1 = $(".display").text();
     num_2 = operator = "";
 });
